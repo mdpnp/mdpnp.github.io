@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>OpenICE Supervisor Overview</title>
+<meta name="title" content="OpenICE Supervisor Overview"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="../assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="2_supervisor.html">
+
+
+
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/custom-style.css">
+<script type="text/javascript" src="../lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <div id="logo-banner-holder" class="container-fluid">
+  <a href="../index.html">
+    <img id="logo-banner" class="hidden-xs" src="../assets/banner.png" alt="Banner" />
+  </a>
+</div>
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="../index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="2_supervisor.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="../demo.html">Web Monitor Demo</a></li>
+            <li><a href="../vitals.html">Visualization App</a></li>
+            <li><a href="../diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="2_supervisor.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="../devdocs/beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="../devdocs/build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="../devdocs/resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="https://mdpnp.mgh.harvard.edu/" target="_blank">MDPnP.org</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <section id="doc" class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="doc-title">OpenICE Supervisor Overview</h1>
+
+          <p>
+  This page is intended to help users become familiar with operating the OpenICE Supervisor. The Supervisor is used for running demonstration applications to interact with connected devices and simulators.
+</p>
+
+<img class="img-responsive" src="../assets/openice-home.png" alt="openice home">
+
+
+<h3>Applications</h3>
+<p>
+  On the left half of the Supervisor main screen are the app icons. Click on an icon to run one of the various demonstration applications. Check out the <a href="3_apps.html">application documentation</a> for more information about how the apps work.
+</p>
+
+
+
+<h3>Devices</h3>
+<p>
+  On the right half of the main screen of the ICE Supervisor, the connected devices will appear in the box with the heading 'Devices assigned to &#x3008;Anybody&#x3009;'. Text will appear in the center of the box if no devices are associated with the selected patient context. These device icons represent all connected device-adapters in the network that match the select patient context. Click on an icon to view further device information and device data including waveforms where available. 
+</p>
+
+
+
+<h3>Select a Patient:</h3>
+<p>
+  Devices are typically assigned to a specific patient. This assignment creates a virtual partition in the data that will aid data discovery and privacy in future versions of OpenICE. To select a patient context to view, click the drop down button 'Select a patient:' choose a patient. When the main screen of the ICE Supervisor is first opened, the default setting is to view devices that are not assigned to a specific patient. To assign a device to a patient context, use the 'Patient ID' application described in the <a href="3_apps.html">apps section</a> of the documentation. The 
+</p>
+<p>
+  There are two 'wildcard' patient contexts that may be used to view data from multiple partitions at one time. The '&#x3008;Anybody&#x3009;' context will display all devices the Supervisor has been able to connect to while the '&#x3008;Unassigned&#x3009;' context will display all unassigned devices.
+</p>
+<p>
+  Currently, OpenICE Supervisor looks to a FHIR server as a stand in for the integration point of a Enterprise Master Patient Index (EMPI). The address of this server is entered when the Supervisor is started. In the lab we have a FHIR server running at <a href="https://fhir.openice.info">fhir.openice.info</a>. If no address is entered, fake patient names will populate the Supervisor.
+</p>
+
+
+
+<h3 id="device-adapter">Create an ICE Device Adapter...</h3>
+<p>
+  Click on the 'Create an ICE Device Adapter' button to integrate (connect) a device into OpenICE. Use the drop-downs to select a device. The 'Device Category' drop-down is used to choose which type of device you would like to start:
+</p>
+
+<div class="row">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt>Serial:</dt>
+      <dd>
+         Connect a device to OpenICE through a serial connection. This is the most common method of connecting medical devices. 
+      </dd>
+      <dt>Simulated:</dt>
+      <dd>
+        For convenience, medical device simulators have been included to aid development and testing. The simulated device's parameters are controlled by the 'Simulation Control' app.
+      </dd>
+      <dt>Network:</dt>
+      <dd>
+        Connect a device to OpenICE through an Ethernet network connection.
+      </dd>
+    </dl>
+  </div>
+  <div class="col-md-6">
+    <img class="img-responsive" src="../assets/openice-device-adapter-start.png" alt="device adapter start">
+  </div>
+</div>
+
+<p>
+  After selecting a device category, click on the Device Type drop-down to choose a device type from the list. If you are using a serial or network device, choose the proper interface by either entering the IP address or serial device. Click the start button to run the ICE Device Adapter. Once the device-adapter is created, the device icon will appear in the connected devices section. To stop the device-adapter, click the large red X on the icon.
+</p>
+
+
+
+        </div>
+
+        <div class="col-md-3 hidden-sm hidden-xs docnav">
+          <div id="docnav-affix">
+
+            <h5 class="docnav-title">User Docs</h5>
+            <ul class="list-unstyled">
+
+              
+                
+                  <li><a href="1_overview.html">OpenICE Introduction</a></li>
+                
+              
+                
+                  <li><a href="2_supervisor.html">Supervisor Overview</a></li>
+                
+              
+                
+                  <li><a href="3_apps.html">Demo Applications</a></li>
+                
+              
+                
+                  <li><a href="4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+                
+              
+                
+                  <li><a href="5_device-adapter-config.html">Device-Adapter Config</a></li>
+                
+              
+                
+                  <li><a href="6_example-setups.html">OpenICE System Setup</a></li>
+                
+              
+
+            </ul>
+
+            <h5 class="docnav-title">For Developers</h5>
+            <ul class="list-unstyled">
+              <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+              <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+              
+                
+                  <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/beagle.html">Beaglebone Notes</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/build.html">Build from Source</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/resources.html">Tools and Resources</a></li>
+                
+              
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer" class="container-fluid">
+
+  <div class="row footer-icons">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+      <div class="row">
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-github" href="https://github.com/mdpnp/mdpnp" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-github-alt fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-twitter" href="https://twitter.com/RandallJonesSim" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-twitter fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-google-plus" href="https://www.google.com/+OpeniceInfoPage" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-google-plus fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-linkedin" href="https://www.linkedin.com/grp/home?gid=8333715" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-linkedin fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-facebook" href="https://www.facebook.com/openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-facebook fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-community" href="http://community.openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-users fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="footer-copyright">Copyright (c) 2015, The OpenICE Team<br/>All rights reserved.</span>
+
+</footer>
+
+    <script type="text/javascript">
+      $(window).load(function () {
+        $('#docnav-affix').affix({
+          offset: {
+            top: function () {
+              return (this.top = $('#logo-banner-holder').outerHeight(true) + $('#main-navbar').outerHeight(true));
+            },
+            bottom: function () {
+              return (this.bottom = $('#footer').outerHeight(true));
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

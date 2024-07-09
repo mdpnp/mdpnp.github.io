@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>Device-Adapter Beaglebone Setup</title>
+<meta name="title" content="Device-Adapter Beaglebone Setup"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="../assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="4_device-adapter-setup.html">
+
+
+
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/custom-style.css">
+<script type="text/javascript" src="../lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <div id="logo-banner-holder" class="container-fluid">
+  <a href="../index.html">
+    <img id="logo-banner" class="hidden-xs" src="../assets/banner.png" alt="Banner" />
+  </a>
+</div>
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="../index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="4_device-adapter-setup.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="../demo.html">Web Monitor Demo</a></li>
+            <li><a href="../vitals.html">Visualization App</a></li>
+            <li><a href="../diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="4_device-adapter-setup.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="../devdocs/beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="../devdocs/build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="../devdocs/resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="https://mdpnp.mgh.harvard.edu/" target="_blank">MDPnP.org</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <section id="doc" class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="doc-title">Device-Adapter Beaglebone Setup</h1>
+
+          <h3 id="beaglebone-setup">Getting Started</h3>
+
+<div class="visible-xs">
+  <div class="alert alert-danger">
+    This tutorial contains content that is not displayed on mobile browsers. Please use a desktop/laptop browser to take advantage of all images.
+  </div>
+</div>
+
+<p>
+  This guide will assist you in setting up a Beaglebone Black (BBB) as a device-adapter for integrating supported medical devices into OpenICE. The device adapters function as means of converting the proprietary data output from existing medical devices into the common data fabric used in OpenICE. OpenICE uses the terminology from <a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=61897">ISO/IEEE 11073-10101</a> as maintained by the <a href="https://rtmms.nist.gov/rtmms/index.htm">Rosetta Terminology Mapping Management Service</a>.
+</p>
+<p>
+  OpenICE device adapters can be used for acquisition of waveform and numeric medical data as well as settings and alarms from supported medical devices. The export capabilities of the connected medical device determine the capabilites of the platform, i.e. if a device does not export waveforms, OpenICE analytics that require waveform input are not possible for that device.
+</p> 
+<p>
+  The OpenICE device-adapter service is the core software that functions as the intermediary between the medical device and the OpenICE network. The device-adapter service is a Java application that can run on any Java friendly hardware platform, including embedded systems, laptops, servers, Raspberry Pis, Intel Galileos, Beagleboards, etc. This device-adapter is not intended to be a permanent solution. Ideally, the functionality of the device-adapter would be available natively from a future medical device.
+</p>
+<p>
+  This tutorial uses Beaglebone Black (Revision C or B) as the hardware platform. BBB is a single board, Linux-driven computing platform. It was chosen as the preliminary implementation platform due to the open-hardware, community supported design, and the high performance to cost ratio of the device. At the time of writing, a Beaglebone Black can be purchased for $55.
+</p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+      <h5>Currently Compatible Devices</h5>
+      <ul>
+        <li>Philips MPxx Intellivue - Ethernet Connection</li>
+        <li>Philips MPxx Intellivue - Serial Connection</li>
+        <li>Masimo Radical 7</li>
+        <li>Dräger Apollo</li>
+        <li>Dräger Evita XL</li>
+        <li>Dräger Evita 4</li>
+        <li>Dräger V500</li>
+        <li>Ivy 450C</li>
+        <li>Nonin</li>
+        <li>Capnostream 20</li>
+        <li>Nellcor N595</li>
+        <li>Bernoulli</li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <h5>Included Device Simulators</h5>
+      <ul>
+        <li>Multi-Parameter Patient Monitor</li>
+        <li>Non-Invasive Blood Pressure</li>
+        <li>Electrocardiogram</li>
+        <li>End Tidal CO2</li>
+        <li>Temperature</li>
+        <li>Infusion Pump</li>
+        <li>Pulse Oximetry</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<h3>Process Overview</h3>
+<div class="clearfix">
+  <img src="../assets/adapters.png" class="hidden-xs pull-right" style="height:250px; padding:10px" alt="adapters">
+  <p>To create an OpenICE device adapter, we are going to take a stock BBB (revision C or B) and flash the on-board eMMC memory with a new disk image to replace the current filesystem. The disk image contains the pre-installed software necessary for running the device adapter.</p>
+  <p>We are going to:</p>
+  <ol>
+    <li><a href="4_device-adapter-setup.html#required-hardware">Gather the Required Hardware</a></li>
+    <li><a href="4_device-adapter-setup.html#required-software">Download the Required Software</a></li>
+    <li><a href="4_device-adapter-setup.html#prepare-sd">Prepare the MicroSD Card</a></li>
+    <li><a href="4_device-adapter-setup.html#flash-memory">Flash the Beaglebone Memory</a></li>
+  </ol>
+</div>
+
+<h3 id="required-hardware">Required Hardware</h3>
+<dl class="dl-horizontal">
+  <dt>Beaglebone Black</dt>
+  <dd>This process was created and tested with a BBB revision C board running the stock Debian Linux distribution.</dd>
+  <dt>5V Power Supply</dt>
+  <dd>Please use a dedicated 5V 1A power supply for your BBB during this process. The flashing process may use more than the 500mA allowed by some USB 2.0 laptop and computer ports. Exceeding this limit could disable the power and corrupt the memory on the BBB.</dd>
+  <dt>MicroSD Card</dt>
+  <dd>At least 4GB of space is required for Revision C (or 2GB for Revision B). This process was tested with an 8GB card. You will also need some method of connecting the MicroSD card to your computer. A simple USB adapter is recommended.</dd>
+  <dt>A Computer</dt>
+  <dd>Needed for preparing the MicroSD card. This process should be possible on any operating system. Windows users will have to ensure that they have the tools needed for decompressing .tar.xz images. This will be easiest on either Linux or OS X.</dd>
+</dl>
+
+<h3 id="required-software">Required Software</h3>
+<dl class="dl-horizontal">
+  <dt><a href="https://www.openice.info/files/bone-debian-7.8-lxde-4gb-armhf-2015-03-01-4gb-openice-0.6.2.img.xz">Revision C Disk Image</a></dt>
+  <dt><a href="https://www.openice.info/files/bone-debian-7.8-console-armhf-2015-03-01-2gb-openice-0.6.2.img.xz">Revision B Disk Image</a></dt>
+  <dd>Download the MD PnP Beaglebone Black eMMC flasher. Details about the software installed in disk image can be found below. This image will replace the onboard memory (eMMC) of the BBB.</dd>
+</dl>
+
+<h5 id="inc-sw" style="padding-top:10px">Software Installed in the Disk Image:</h5>
+<dl class="dl-horizontal">
+  <dt>Debian 7.8</dt>
+  <dd>The disk image contains a Debian filesystem from <a href="http://beagleboard.org/latest-images">beagleboard.org</a>. The exact kernel installed is 3.8.13-bone71.</dd>
+  <dt>Oracle SE JDK</dt>
+  <dd>The Java Standard Edition Development Kit is installed for ease of debugging on-board applications. The JDK version is 8u33.</dd>
+  <dt>MD PnP OpenICE</dt>
+  <dd>MD PnP provides a <a href="https://github.com/mdpnp/mdpnp/releases/latest">demo application</a> for both serving as the medical device adapter and for viewing and interacting with the OpenICE network on a computer. Later in the tutorial, we will configure the installed demo application to function as a device adapter. To view and interact with the data on your personal computer, simply install the software by clicking the big green download button on the linked page.</dd>
+  <dt>NTP Daemon</dt>
+  <dd>The Network Time Protocol daemon (NTPd) package is installed on the disk image. The OpenICE environment requires all nodes to sync to a NTP clock for data accuracy and alignment. The time zone of the BBB image has been set to U.S. Eastern.</dd>
+</dl>
+
+<h3 id="prepare-sd">Prepare the MicroSD Card</h3>
+<p>Now we are going to create a MicroSD card that the BBB can use to automatically flash its memory.</p>
+<ol>
+  <li>Copy the BBB disk image to MicroSD card. On a Linux system with the MicroSD card identified as /dev/sdX the following command can be used:</li>
+  <li>(for Revision C) <kbd>xz -dc bone-debian-7.8-lxde-4gb-armhf-2015-03-01-4gb-openice-0.6.2.img.xz | dd of=/dev/sdX bs=1024K</kbd></li>
+  <li>(for Revision B) <kbd>xz -dc bone-debian-7.8-console-armhf-2015-03-01-2gb-openice-0.6.2.img.xz | dd of=/dev/sdX bs=1024K</kbd></li>
+</ol>
+<p>That's it. Your MicroSD card is ready.</p>
+
+<h3 id="flash-memory">Flashing the Memory</h3>
+<div class="alert alert-info">
+  NOTE: This process will overwrite the contents of your BBB's internal (eMMC) memory. Backup any content you wish to preserve.
+</div>
+<ol>
+  <li>Insert the MicroSD card into the BBB.</li>
+  <li>Plug in the BBB power supply.</li>
+  <div class="alert alert-info">
+    NOTE: If you are using a revision A or B beaglebone not previously flashed with an updated version of u-boot you may need to hold down the "option/boot" button (near the microSD card slot) to boot from the microSD card.
+  </div>
+  <div class="alert alert-warning">
+    WARNING: Do not use the USB power during the flashing process. eLinux reports that this process may exceed 500mA and trigger a PC or laptop to disable USB power. Please use a dedicated 5V 1A power supply as detailed above.
+  </div>
+  <li>When the image starts copying onto the BBB the four LEDs will illuminate successively from end to end.</li>
+  <li>When flashing is complete all the LEDs will illuminate and some finalization steps will occur.  After another minute or two the LEDs will extinguish and the beaglebone will power down, remove the power and MicroSD card.</li>
+  <li>Your beagle is now running Debian 7.8 and has the OpenICE device adapter software installed. It can now be configured to run as a device adapter for any of the supported devices. In the next section we will configure the adapter to communicate with a Philips MP70.</li>
+  <li>The default user is "debian". The default password is "debian".</li>
+</ol>
+<div class="alert alert-info">
+  NOTE: The BBB with Debian may take up to 3 minutes to boot without a network cable attached.
+</div>
+<div>
+  <p>Your new device-adapter is ready to use. You can start the software with <kbd>OpenICE-1.0.0/bin/OpenICE</kbd> from the home directory. Check out <a href="5_device-adapter-config.html">the next page</a> for more instructions.</p>
+</div>
+
+
+        </div>
+
+        <div class="col-md-3 hidden-sm hidden-xs docnav">
+          <div id="docnav-affix">
+
+            <h5 class="docnav-title">User Docs</h5>
+            <ul class="list-unstyled">
+
+              
+                
+                  <li><a href="1_overview.html">OpenICE Introduction</a></li>
+                
+              
+                
+                  <li><a href="2_supervisor.html">Supervisor Overview</a></li>
+                
+              
+                
+                  <li><a href="3_apps.html">Demo Applications</a></li>
+                
+              
+                
+                  <li><a href="4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+                
+              
+                
+                  <li><a href="5_device-adapter-config.html">Device-Adapter Config</a></li>
+                
+              
+                
+                  <li><a href="6_example-setups.html">OpenICE System Setup</a></li>
+                
+              
+
+            </ul>
+
+            <h5 class="docnav-title">For Developers</h5>
+            <ul class="list-unstyled">
+              <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+              <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+              
+                
+                  <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/beagle.html">Beaglebone Notes</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/build.html">Build from Source</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/resources.html">Tools and Resources</a></li>
+                
+              
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer" class="container-fluid">
+
+  <div class="row footer-icons">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+      <div class="row">
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-github" href="https://github.com/mdpnp/mdpnp" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-github-alt fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-twitter" href="https://twitter.com/RandallJonesSim" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-twitter fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-google-plus" href="https://www.google.com/+OpeniceInfoPage" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-google-plus fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-linkedin" href="https://www.linkedin.com/grp/home?gid=8333715" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-linkedin fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-facebook" href="https://www.facebook.com/openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-facebook fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-community" href="http://community.openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-users fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="footer-copyright">Copyright (c) 2015, The OpenICE Team<br/>All rights reserved.</span>
+
+</footer>
+
+    <script type="text/javascript">
+      $(window).load(function () {
+        $('#docnav-affix').affix({
+          offset: {
+            top: function () {
+              return (this.top = $('#logo-banner-holder').outerHeight(true) + $('#main-navbar').outerHeight(true));
+            },
+            bottom: function () {
+              return (this.bottom = $('#footer').outerHeight(true));
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

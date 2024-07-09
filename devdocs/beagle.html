@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>Beaglebone Disk Image Notes</title>
+<meta name="title" content="Beaglebone Disk Image Notes"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="../assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="beagle.html">
+
+
+
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/custom-style.css">
+<script type="text/javascript" src="../lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <div id="logo-banner-holder" class="container-fluid">
+  <a href="../index.html">
+    <img id="logo-banner" class="hidden-xs" src="../assets/banner.png" alt="Banner" />
+  </a>
+</div>
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="../index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="beagle.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="../demo.html">Web Monitor Demo</a></li>
+            <li><a href="../vitals.html">Visualization App</a></li>
+            <li><a href="../diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="beagle.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="../docs/1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="../docs/2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="../docs/3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="../docs/4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="../docs/5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="../docs/6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="https://mdpnp.mgh.harvard.edu/" target="_blank">MDPnP.org</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <section id="doc" class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="doc-title">Beaglebone Disk Image Notes</h1>
+
+          <p>When creating the downloadable disk image for the Beaglebone Black ‘device-adapter’, we make several alterations to the default Debian Beaglebone disk image. This page summarizes those changes.</p>
+
+<h3 id="setting-up-on-embedded-devices">Setting up on embedded devices</h3>
+<p>The OpenICE software has been tested on BeagleBone Black and Raspberry Pi.  But <em>should</em> run on any ARM device running a recent linux based on kernel 3.x and compiled for the ARM hard-float ABI.  (This in addition to Intel x86 and x86_64 on mac/linux/windows).  These instructions are specific to Debian 7 running on BeagleBone Black hardware; but they could be adapted for virtually any platform with JVM support.</p>
+
+<h3 id="setting-up-a-beagleboneblack">Setting up a BeagleBoneBlack</h3>
+
+<p><a href="http://beagleboard.org/latest-images">latest images</a></p>
+
+<p>Configure a microsd card with debian on another ubuntu computer</p>
+
+<p><code>xzcat bone-debian-7.8-lxde-4gb-armhf-2015-03-01-4gb.img.xz | pv | dd of=/dev/sdX bs=1024K</code></p>
+
+<p>Insert the microsd card into the BBB. Power up and this will boot Debian from the microsd card.</p>
+
+<h3 id="change-usb-networking-ip-address">Change USB networking IP address</h3>
+
+<p><a href="http://ewong.me/changing-usb0-ip-address-on-the-beaglebone-black/">http://ewong.me/changing-usb0-ip-address-on-the-beaglebone-black/</a></p>
+
+<h3 id="change-debian-user-password">Change debian user password</h3>
+
+<p><code>sudo passwd debian</code></p>
+
+<p>for consistency you might like to change the helpful hint in /etc/issue and /etc/issue.net</p>
+
+<h3 id="wifi">WiFi</h3>
+
+<p>A lot of wifi adapters are supported out the box.  The ones we use become interface ra1
+so this block is helpful to add to 
+<code>/etc/network/interfaces</code></p>
+
+<pre><code>auto ra0
+iface ra0 inet dhcp
+        wpa-ssid "MDPNP-JSN"
+        wpa-psk "********"
+</code></pre>
+
+<h3 id="set-a-hostname">Set a hostname</h3>
+
+<p><code>echo HOSTNAME &gt; /etc/hostname</code></p>
+
+<p>save some aggravation and make sure the host name resolves by adding to <code>/etc/hosts</code></p>
+
+<pre><code>127.0.0.1    localhost.localdomain localhost
+127.0.1.1    my-machine
+</code></pre>
+
+<p>REBOOT</p>
+
+<h3 id="update-package-information">Update package information</h3>
+
+<p><code>sudo apt-get update</code></p>
+
+<h3 id="install-java">Install java</h3>
+
+<p><a href="http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#Oracle_Java_8">http://elinux.org/Beagleboard:BeagleBoneBlack_Debian#Oracle_Java_8</a></p>
+
+<h3 id="acpi-power-button">ACPI (power button)</h3>
+
+<p>ensure that the ACPId package is installed</p>
+
+<p><code>sudo apt-get install acpid</code></p>
+
+<h3 id="unzip">unzip</h3>
+
+<p>now is a good time to install zip</p>
+
+<p><code>sudo apt-get install unzip</code></p>
+
+<h3 id="timezone">TimeZone</h3>
+
+<p>To interpret data from devices that do not emit their timezone (most) one should configure the timezone on the ARM device.</p>
+
+<p><code>dpkg-reconfigure tzdata</code></p>
+
+<h3 id="serial-port-permissions">serial port permissions</h3>
+
+<p>For some reason ttyOx get root/dialout (like an external modem?) Until I figure out how to change default ownership/permissions I’ve been adding the debian user to the permissioned groups.</p>
+
+<p><code>sudo usermod -a -G tty debian</code></p>
+
+<p><code>sudo usermod -a -G dialout debian</code></p>
+
+<h3 id="device-adapter-service">device-adapter service</h3>
+
+<p>Add the new device to the targets file in the repo</p>
+
+<ul>
+  <li>execute <code>./buildAndDeploy.sh</code></li>
+  <li>create a device.this file with domain and device information on the new device</li>
+  <li>create /home/debian/log for log files</li>
+</ul>
+
+<h3 id="time-synchronization">Time Synchronization</h3>
+
+<p>Synchronizing time between devices enables a lot of powerful capabilities combined with things like DesinationOrder QoS and Lifespan QoS.</p>
+
+<p><code>sudo apt-get install ntp</code> to install ntpd and keep the device in sync.  servers can then be specified in /etc/ntp.conf</p>
+
+<p>we also specify a local NTP server on our lab network with DHCP option 42</p>
+
+<h3 id="enable-private-key-ssh-authentication">enable private key ssh authentication</h3>
+
+<p>Copy public key to <code>~/.ssh/authorized_keys</code> on the beaglebone</p>
+
+<p>Ensure no read/write except for user on <code>~/.ssh/authorized_keys</code></p>
+
+<p>On source computer with private key ID_RSA to access beaglebone at BEAGLEADDRESS create an entry in <code>~/.ssh/config</code></p>
+
+<pre><code>Host BEAGLEADDRESS
+    IdentityFile ~/.ssh/ID_RSA
+</code></pre>
+
+<h3 id="disable-serial-console-getty-on-ttyo0">Disable serial console (getty) on ttyO0</h3>
+
+<p>Comment out this line in <code>/etc/inittab</code></p>
+
+<pre><code>T0:23:respawn:/sbin/getty -L ttyO0 115200 vt102
+</code></pre>
+
+<p>Comment out this line in <code>/boot/SOC.sh</code></p>
+
+<pre><code>serial_tty=ttyO0
+</code></pre>
+
+<p>Ok those were great but this actually does it because it’s launched by systemd</p>
+
+<p><code>sudo systemctl stop serial-getty@ttyO0.service</code></p>
+
+<p><code>sudo systemctl mask serial-getty@ttyO0.service</code></p>
+
+<h3 id="startech-usb31000sptw-support">Startech USB31000SPTW support</h3>
+
+<p>Download the driver for <a href="http://www.asix.com.tw/download.php?sub=downloadsearch&amp;PSNoID=112">AX88179</a></p>
+
+<p>Install headers for most recent kernel</p>
+
+<p><code>sudo apt-get install linux-headers-3.8.13-bone71</code></p>
+
+<p>Extract driver, make, make install</p>
+
+<h3 id="disable-automatic-start-of-window-manager">Disable automatic start of window manager</h3>
+
+<p><a href="http://superuser.com/questions/781520/disable-gui-on-beaglebone-black-running-debian">http://superuser.com/questions/781520/disable-gui-on-beaglebone-black-running-debian</a></p>
+
+<h3 id="useful-links">Useful Links</h3>
+
+<p>Latest BeagleBone Linux builds
+<a href="http://beagleboard.org/latest-images">http://beagleboard.org/latest-images</a></p>
+
+<p>beagleboard.org getting started
+<a href="http://beagleboard.org/Getting%20Started">http://beagleboard.org/Getting%20Started</a></p>
+
+<h3 id="archive----no-longer-used">Archive – no longer used</h3>
+
+<h3 id="cpu-governor">cpu governor</h3>
+
+<p>Under heavy load (stress testing) I’ve observed hangups due to CPU throttling.  Enabling the ‘performance’ governor profile helps mitigate the problem.</p>
+
+<p><code>sudo apt-get install cpufrequtils</code></p>
+
+<p><code>sudo cpufreq-set -g performance</code></p>
+
+<p>That’s not a permanent change.  One way to ensure sysfs gets updated every time:</p>
+
+<p><code>sudo apt-get install sysfsutils</code></p>
+
+<p>Add a line at the end <code>sudo vi /etc/sysfs.conf</code></p>
+
+<pre><code>devices/system/cpu/cpu0/cpufreq/scaling_governor = performance
+</code></pre>
+
+<p>move the ondemand script</p>
+
+<p><code>sudo mv /etc/init.d/ondemand /etc/init.d/ondemand.bak</code></p>
+
+<h3 id="wifi-1">wifi</h3>
+
+<p>The latest 12.04.3 build from armhf.com supports the realtek rtl8192cu chipset “out of the box”.  we’ve had success using such adapters with beaglebone black via usb. Ensure the adapter is connected at power-on.  Uncomment relevant wlan0 lines in <code>/etc/network/</code>interfaces.  Execute <code>sudo ifup wlan0</code> and wait a loong time.  Eventually the adapter will come up!</p>
+
+<h3 id="empirical-power-draw">Empirical power draw</h3>
+
+<p>In informal testing a beaglebone black using ethernet had an observed maximum current draw of 409 mA.  With the 3” LCD cape the max was 469 mA.  With an RTL8188S wifi dongle the max was 520 mA.  With an RTL8192cu wifi dongle the max was 566 mA.  With a 7” LCD cape the max draw was 1,010 mA.  All at 5V.</p>
+
+<h3 id="rs-232-ttyo1-if-necessary">RS-232 ttyO1 (if necessary)</h3>
+
+<h3 id="realtime-clock">Realtime Clock</h3>
+
+<p><a href="https://learn.adafruit.com/adding-a-real-time-clock-to-beaglebone-black/overview">https://learn.adafruit.com/adding-a-real-time-clock-to-beaglebone-black/overview</a></p>
+
+<p>similar works for the ds3231
+<a href="http://blog.lemoneerlabs.com/post/time-y-wimey-stuff">http://blog.lemoneerlabs.com/post/time-y-wimey-stuff</a></p>
+
+<h3 id="swap-space">swap space</h3>
+
+<p>This requires further exploration… but for TRANSIENT_LOCAL durability ResourceLimits will need to be tuned for available memory.  In addition adding some swap space should enable larger writer caches.<br />
+<a href="https://help.ubuntu.com/community/SwapFaq">https://help.ubuntu.com/community/SwapFaq</a></p>
+
+<h3 id="backup-the-contents-of-the-mmc">backup the contents of the MMC</h3>
+
+<p>This is a super useful little image that will copy MMC to an sdcard and then can easily be configured to reverse the process.
+<a href="http://elinux.org/BeagleBone_Black_Extracting_eMMC_contents">http://elinux.org/BeagleBone_Black_Extracting_eMMC_contents</a></p>
+
+<h3 id="enable-sudo-without-entering-password">enable sudo without entering password</h3>
+
+<p><a href="http://jeromejaglale.com/doc/unix/ubuntu_sudo_without_password">http://jeromejaglale.com/doc/unix/ubuntu_sudo_without_password</a></p>
+
+<p>sudo visudo</p>
+
+<p>Add this line at the end (change “jerome” to your username):</p>
+
+<pre><code>jerome ALL=(ALL) NOPASSWD: ALL
+</code></pre>
+
+
+        </div>
+
+        <div class="col-md-3 hidden-sm hidden-xs docnav">
+          <div id="docnav-affix">
+
+            <h5 class="docnav-title">User Docs</h5>
+            <ul class="list-unstyled">
+
+              
+                
+                  <li><a href="../docs/1_overview.html">OpenICE Introduction</a></li>
+                
+              
+                
+                  <li><a href="../docs/2_supervisor.html">Supervisor Overview</a></li>
+                
+              
+                
+                  <li><a href="../docs/3_apps.html">Demo Applications</a></li>
+                
+              
+                
+                  <li><a href="../docs/4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+                
+              
+                
+                  <li><a href="../docs/5_device-adapter-config.html">Device-Adapter Config</a></li>
+                
+              
+                
+                  <li><a href="../docs/6_example-setups.html">OpenICE System Setup</a></li>
+                
+              
+
+            </ul>
+
+            <h5 class="docnav-title">For Developers</h5>
+            <ul class="list-unstyled">
+              <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+              <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+              
+                
+                  <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+                
+              
+                
+                  <li><a href="beagle.html">Beaglebone Notes</a></li>
+                
+              
+                
+                  <li><a href="build.html">Build from Source</a></li>
+                
+              
+                
+                  <li><a href="resources.html">Tools and Resources</a></li>
+                
+              
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer" class="container-fluid">
+
+  <div class="row footer-icons">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+      <div class="row">
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-github" href="https://github.com/mdpnp/mdpnp" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-github-alt fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-twitter" href="https://twitter.com/RandallJonesSim" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-twitter fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-google-plus" href="https://www.google.com/+OpeniceInfoPage" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-google-plus fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-linkedin" href="https://www.linkedin.com/grp/home?gid=8333715" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-linkedin fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-facebook" href="https://www.facebook.com/openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-facebook fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-community" href="http://community.openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-users fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="footer-copyright">Copyright (c) 2015, The OpenICE Team<br/>All rights reserved.</span>
+
+</footer>
+
+    <script type="text/javascript">
+      $(window).load(function () {
+        $('#docnav-affix').affix({
+          offset: {
+            top: function () {
+              return (this.top = $('#logo-banner-holder').outerHeight(true) + $('#main-navbar').outerHeight(true));
+            },
+            bottom: function () {
+              return (this.bottom = $('#footer').outerHeight(true));
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

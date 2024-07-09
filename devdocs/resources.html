@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>Developer Tools and Resources</title>
+<meta name="title" content="Developer Tools and Resources"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="../assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="resources.html">
+
+
+
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/custom-style.css">
+<script type="text/javascript" src="../lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <div id="logo-banner-holder" class="container-fluid">
+  <a href="../index.html">
+    <img id="logo-banner" class="hidden-xs" src="../assets/banner.png" alt="Banner" />
+  </a>
+</div>
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="../index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="resources.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="../demo.html">Web Monitor Demo</a></li>
+            <li><a href="../vitals.html">Visualization App</a></li>
+            <li><a href="../diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="resources.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="../docs/1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="../docs/2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="../docs/3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="../docs/4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="../docs/5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="../docs/6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="https://mdpnp.mgh.harvard.edu/" target="_blank">MDPnP.org</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <section id="doc" class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="doc-title">Developer Tools and Resources</h1>
+
+          <p>In the lab, we use a variety of external tools in our research and development of OpenICE. This page lists tools and resources we  would hate to live without.</p>
+
+<h1 id="tools">Tools</h1>
+
+<p>We use these tools in developing our software.</p>
+
+<p><strong>Source Control</strong>
+<a href="http://git-scm.com">http://git-scm.com</a></p>
+
+<p>Source control is maintained <a href="https://github.com/mdpnp/mdpnp">here on GitHub</a>.</p>
+
+<p><strong>Build Automation</strong>
+<a href="http://gradle.org">http://gradle.org</a></p>
+
+<p>Builds are automated with the <a href="http://gradle.org">gradle</a> build tool.</p>
+
+<p><strong>Eclipse IDE</strong>
+<a href="http://www.eclipse.org">http://www.eclipse.org</a></p>
+
+<p>Eclipse is not required but is used by many contributors.</p>
+
+<p><strong>Artifact Repository</strong>
+<a href="http://www.artifactory.org">http://www.artifactory.org</a></p>
+
+<p>Artifacts are maintained in <a href="https://build.openice.info/artifactory/webapp/home.html?0">our repository</a>.</p>
+
+<p><strong>Continuous Integration</strong>
+<a href="http://jenkins-ci.org">http://jenkins-ci.org</a></p>
+
+<p>Code is built continuously using <a href="https://jenkins.openice.info/">our jenkins instance</a>.</p>
+
+<p><strong>Unit Testing</strong>
+<a href="http://junit.org">http://junit.org</a></p>
+
+<p>Unit tests are written using junit.</p>
+
+<p><strong>Test Coverage</strong>
+<a href="http://www.eclemma.org">http://www.eclemma.org</a></p>
+
+<p>In time test coverage will be evaluated and reported by EclEmma.</p>
+
+<p><strong>Middleware</strong>
+<a href="http://www.rti.com">http://www.rti.com</a></p>
+
+<p>Some code depends on <a href="http://www.omg.org/dds/">DDS</a> components from Real-Time Innovations.  To access these components please <a href="http://www.rti.com/downloads/rti-dds.html">register for membership</a> in our infrastructure community with identifier ICE_IC01.</p>
+
+<p>The <a href="http://www.omg.org/dds/">DDS</a> open standard for publish/subscribe middleware has many implementations (including <a href="http://www.opendds.org">OCI OpenDDS</a>, <a href="http://www.prismtech.com/vortex">Prismtech Vortex</a>, <a href="http://www.twinoakscomputing.com">Twin Oaks Core DX</a>, and <a href="http://www.beedds.com">BeeDDS</a>.  In our research we are currently using the community edition of <a href="http://www.rti.com/downloads/rti-dds.html">RTI</a> DDS for prototyping.</p>
+
+<h1 id="resources">Resources</h1>
+
+<p><a href="http://standards.ieee.org/findstds/standard/11073-10201-2004.html">IEEE 11073-10201-2004 Domain Information Model</a></p>
+
+<p><a href="http://standards.ieee.org/findstds/standard/11073-20601-2010.html">IEEE 11073-20601-2010 Personal Health Device Communication</a></p>
+
+<p><a href="http://www.continuaalliance.org">Continua Alliance</a></p>
+
+<p><a href="http://oss.signove.com/index.php/Antidote:_IEEE_11073-20601_stack">Antidote: IEEE 11073-20601 stack</a></p>
+
+<p><a href="http://www.omg.org/spec/DDS/">Object Management Group - Data Distribution Service</a></p>
+
+<p><a href="http://www.omg.org/gettingstarted/omg_idl.htm">OMG - Interface Definition Language</a></p>
+
+<p><a href="http://www.omg.org/spec/DDSI/">OMG - RealTime Publish/Subscribe</a></p>
+
+<p><a href="http://www.omg.org/spec/DDS-XTypes/">OMG - Extensible and Dynamic Topic Types for DDS</a></p>
+
+<p><a href="http://hssp.wikispaces.com">Healthcare Services Specification Program</a></p>
+
+<p><a href="http://www.ihe.net/Technical_Frameworks#pcd">Integrating the Healthcare Enterprise - Technical Framework for Patient Care Device</a></p>
+
+<p><a href="http://rtmms.nist.gov">NIST - Rosetta Terminology Mapping Management Service</a></p>
+
+<p><a href="http://hit-testing.nist.gov/medicaldevices/">NIST - Medical Device Communications Testing Project</a></p>
+
+<p><a href="http://hl7api.sourceforge.net">HAPI -  Open source HL7 library for java</a></p>
+
+<p><a href="http://www.openecg.net">Open ECG</a></p>
+
+<p><a href="http://www.frankshospitalworkshop.com/index.html">Frank’s Hospital Workshop</a></p>
+
+<p><a href="http://www.projecthdata.org">HDATA</a></p>
+
+<p><a href="http://www.hl7.org/implement/standards/fhir/index.html">HL7 FHIR</a></p>
+
+<p><a href="http://www.osehra.org">Open Source Electronic Health Record Agent</a></p>
+
+
+
+        </div>
+
+        <div class="col-md-3 hidden-sm hidden-xs docnav">
+          <div id="docnav-affix">
+
+            <h5 class="docnav-title">User Docs</h5>
+            <ul class="list-unstyled">
+
+              
+                
+                  <li><a href="../docs/1_overview.html">OpenICE Introduction</a></li>
+                
+              
+                
+                  <li><a href="../docs/2_supervisor.html">Supervisor Overview</a></li>
+                
+              
+                
+                  <li><a href="../docs/3_apps.html">Demo Applications</a></li>
+                
+              
+                
+                  <li><a href="../docs/4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+                
+              
+                
+                  <li><a href="../docs/5_device-adapter-config.html">Device-Adapter Config</a></li>
+                
+              
+                
+                  <li><a href="../docs/6_example-setups.html">OpenICE System Setup</a></li>
+                
+              
+
+            </ul>
+
+            <h5 class="docnav-title">For Developers</h5>
+            <ul class="list-unstyled">
+              <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+              <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+              
+                
+                  <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+                
+              
+                
+                  <li><a href="beagle.html">Beaglebone Notes</a></li>
+                
+              
+                
+                  <li><a href="build.html">Build from Source</a></li>
+                
+              
+                
+                  <li><a href="resources.html">Tools and Resources</a></li>
+                
+              
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer" class="container-fluid">
+
+  <div class="row footer-icons">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+      <div class="row">
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-github" href="https://github.com/mdpnp/mdpnp" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-github-alt fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-twitter" href="https://twitter.com/RandallJonesSim" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-twitter fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-google-plus" href="https://www.google.com/+OpeniceInfoPage" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-google-plus fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-linkedin" href="https://www.linkedin.com/grp/home?gid=8333715" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-linkedin fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-facebook" href="https://www.facebook.com/openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-facebook fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-community" href="http://community.openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-users fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="footer-copyright">Copyright (c) 2015, The OpenICE Team<br/>All rights reserved.</span>
+
+</footer>
+
+    <script type="text/javascript">
+      $(window).load(function () {
+        $('#docnav-affix').affix({
+          offset: {
+            top: function () {
+              return (this.top = $('#logo-banner-holder').outerHeight(true) + $('#main-navbar').outerHeight(true));
+            },
+            bottom: function () {
+              return (this.bottom = $('#footer').outerHeight(true));
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

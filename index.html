@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>OpenICE - Open-Source Integrated Clinical Environment</title>
+<meta name="title" content="OpenICE - Open-Source Integrated Clinical Environment"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="index.html">
+
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@RandallJonesSim" />
+  <meta name="twitter:title" content="OpenICE - Open-Source Integrated Clinical Environment" />
+  <meta name="twitter:description" content="OpenICE project aims to develop a distributed system platform to integrate realtime medical devices and clinical applications into the existing Healthcare IT Enterprise." />
+  <meta name="twitter:image" content="https://www.openice.info/assets/openice-home.png" />
+
+
+<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/custom-style.css">
+<script type="text/javascript" src="lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="index.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="demo.html">Web Monitor Demo</a></li>
+            <li><a href="vitals.html">Visualization App</a></li>
+            <li><a href="diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="index.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="docs/1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="docs/2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="docs/3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="docs/4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="docs/5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="docs/6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="devdocs/beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="devdocs/build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="devdocs/resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="http://mdpnp.mgh.harvard.edu" target="_blank">MDPnP Program</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <div class="splash-screen fadeIn">
+  <div class="splash-screen__background"></div>
+
+  <div class="splash-screen__header">
+    <div class="splash-screen__title col-md-4"><span>OpenICE</span></div>
+    <div class="splash-screen__list col-md-8">
+      <ul>
+        <li>- is an Open-Source Integrated Clinical Environment.</li>
+        <li>- is a prototype clinical ecosystem connecting medical devices and clinical applications.</li>
+        <li>- provides a framework for the integration of devices and apps into the broader Medical Internet of Things.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="download-btn__container">
+    <a id="landing-download-btn" class="btn btn-primary download-btn" href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">
+      <span class="download-btn__title">Download OpenICE</span>
+      <br />
+      <span class="download-btn__subtitle">Latest Release</span>
+    </a>
+  </div>
+
+
+  <div class="splash-screen__link">
+    <div class="splash-screen__link-demo"><a href="demo.html">Streaming Web Demo</a></div>
+  </div>
+
+</div>
+
+
+
+
+
+<section class="whatis">
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <h1 class="whatis__title section-heading">What is OpenICE?</h1>
+        <p class="whatis__p">OpenICE is an initiative to create a community implementation of an Integrated Clinical Environment. The initiative encompasses not only software implementation but also an architecture for a wider clinical ecosystem to enable new avenues of clinical research. OpenICE seeks to integrate an inclusive framework of healthcare devices and clinical applications to existing Healthcare IT ecosystems.</p>
+        <p class="whatis__p">To learn more about OpenICE, check out our <a href="docs/1_overview.html">documentation</a>.</p>
+      </div>
+
+      <div class="col-md-7">
+        <img class="img-responsive section-whatis-image" alt="Data Flow Diagram" src="assets/openice-diagram-setup-pictures.png" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section-landing-link">
+  <div class="section-landing-link-back"></div>
+  <div class="landing-container">
+    <h1 class="landing-link-heading section-heading">Explore Further</h1>
+    <div class="landing-link col-xs-12 col-sm-6 col-lg-3">
+      <a id="landing-link-demo" href="demo.html">
+        <img class="landing-link-image" width="350" height="500" alt="OpenICE Web Demo" src="assets/tile-demo.jpg" />
+        <h1 class="landing-link-title">Monitoring Web Demo</h1>
+      </a>
+    </div>
+    <div class="landing-link col-xs-12 col-sm-6 col-lg-3">
+      <a id="landing-link-docs" href="docs/1_overview.html">
+        <img class="landing-link-image" width="350" height="500" alt="OpenICE Documentation" src="assets/tile-software.jpg" />
+        <h1 class="landing-link-title">User Documentation</h1>
+      </a>
+    </div>
+    <div class="landing-link-light col-xs-12 col-sm-6 col-lg-3">
+
+  </div>
+</section>
+
+
+
+
+<section class="docs-toc container">
+  <h1 class="section-heading">Documentation</h1>
+
+  <div class="col-md-6">
+    <h3 id="docs">User Docs</h3>
+    <dl class="dl-horizontal">
+      
+        
+          <dt><a href="docs/1_overview.html">OpenICE Introduction</a></dt>
+          <dd><p>Looking for where to start with OpenICE? Check out this page for the basic information you'll need to get off the ground with OpenICE.</p></dd>
+        
+      
+        
+          <dt><a href="docs/2_supervisor.html">Supervisor Overview</a></dt>
+          <dd><p>This page is intended to help users become familiar with operating the OpenICE Supervisor. The Supervisor is used for running demonstration applications to interact with connected devices and simulators.</p></dd>
+        
+      
+        
+          <dt><a href="docs/3_apps.html">Demo Applications</a></dt>
+          <dd><p>All this data! What should I do with it? Input it into a demo app of course! This page will explain the purpose and operation of each one of our demonstration applications included with the Supervisor.</p></dd>
+        
+      
+        
+          <dt><a href="docs/4_device-adapter-setup.html">Device-Adapter Setup</a></dt>
+          <dd><p>Interested in connecting a supported device into your own OpenICE network? Follow this tutorial to learn the basics about a 'device-adapter' and how to install the device-adapter software onto a Beaglebone Black. The process shown here can be used to connect any supported device onto any Java compatible computer, including your laptop.</p></dd>
+        
+      
+        
+          <dt><a href="docs/5_device-adapter-config.html">Device-Adapter Config</a></dt>
+          <dd><p>This tutorial will show you how to configure a device-adapter to communicate with a Philips MP70.</p></dd>
+        
+      
+        
+          <dt><a href="docs/6_example-setups.html">OpenICE System Setup</a></dt>
+          <dd><p>OpenICE is a highly flexible system that leaves users with many options for using the tech. This tutorial illustrates three sample OpenICE configurations - single device, consumer, and enterprise.</p></dd>
+        
+      
+    </dl>
+  </div>
+
+  <div class="col-md-6">
+    <h3 id="dev">For Developers</h3>
+    <dl class="dl-horizontal">
+
+      <dt style="overflow:visible;"><a target="_blank" href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw">Architecture Description</a></dt>
+      <dd>
+        <p>The Infusion Safety Application Architecture Description provides a high-level survey of key architectural components of the current implementation of an Integrated Clinical Environment (ICE) devised at the MD PnP Interoperability Lab in Cambridge, MA. This document offers readers a targeted glimpse of key design features of that implementation that pertain specifically to the PCA Infusion Safety application.</p>
+      </dd>
+
+      <dt><a target="_blank" href="https://github.com/mdpnp/hello-openice">Hello, OpenICE!</a></dt>
+      <dd>
+        <p>Want to use the OpenICE platform for something new? Write your own OpenICE app! The code repo hello-openice will help you tackle basic device subscription, vital signs collection, and more.</p>
+      </dd>
+
+      
+        
+          <dt><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></dt>
+          <dd><p>Documentation for Building an App from "Hello, OpenICE!"</p></dd>
+        
+      
+        
+          <dt><a href="devdocs/beagle.html">Beaglebone Notes</a></dt>
+          <dd><p>This page lists the alterations we make to the default Beaglebone Black Debian disk image while creating the 'device-adapter' disk image.</p></dd>
+        
+      
+        
+          <dt><a href="devdocs/build.html">Build from Source</a></dt>
+          <dd><p>Self explanatory. Helpful information for building the OpenICE project from source. These instructions are aimed at experienced software developers looking to work with the source code of the OpenICE project.</p></dd>
+        
+      
+        
+          <dt><a href="devdocs/resources.html">Tools and Resources</a></dt>
+          <dd><p>In the lab, we use a variety of external tools in our research and development of OpenICE. This page lists tools and resources we  would hate to live without.</p></dd>
+        
+      
+
+    </dl>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+<section class="videos container">
+  <h1 class="section-heading">Videos</h1>
+
+  <div class="col-md-6 video-tile">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://player.vimeo.com/video/116693950" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+    <a href="https://vimeo.com/116693950" target="_blank">MD PnP Lab Tour</a>
+    <p>The lab here at MD PnP is constantly expanding it's capabilities and collaborations. Check out our current capabilities, equipment and infrastructure.</p>
+  </div>
+
+  <div class="col-md-6 video-tile">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://player.vimeo.com/video/116917809" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+    <a href="https://vimeo.com/116917809" target="_blank">OpenICE Technical Intro</a>
+    <p>Take an in depth look at OpenICE in this technical presentation. Lead developer Jeff Plourde explains the fundamentals of our distributed system and our use of the DDS middleware. After viewing this webinar, you will understand the basic operating principles of OpenICE.</p>
+  </div>
+
+  <div class="col-md-6 video-tile">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe src="https://player.vimeo.com/video/116916484"webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
+    <a href="https://vimeo.com/116916484" target="_blank">OpenICE Overview</a>
+    <p>Learn more about the OpenICE platform and where to find the software from this quick webinar!</p>
+  </div>
+
+  <div class="col-md-6 video-tile">
+    <video controls preload="none" poster="assets/webinar-poster.png">
+      <source src="http://webcasts.prismtech.com/files/webcasts/DDS-MD-PnP-Healthcare-WebcastNov2014.mp4" type="video/mp4">
+    </video>
+    <a href="http://webcasts.prismtech.com/files/webcasts/DDS-MD-PnP-Healthcare-WebcastNov2014.mp4" target="_blank">MDPnP/PrismTech Webinar</a>
+    <p>Checkout the members of the MD PnP team presenting in PrismTech's webinar "Harnessing DDS in Next Generation Healthcare Systems Webcast." Learn about DDS and it's use in the OpenICE prototype.</p>
+  </div>
+</section>
+
+<script type="text/javascript" src="build/GA-event-listeners.js" defer ></script>
+
+
+    <footer id="footer" class="container-fluid">
+
+  <div class="row footer-icons">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+      <div class="row">
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-github" href="https://github.com/mdpnp/mdpnp" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-github-alt fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-twitter" href="https://twitter.com/RandallJonesSim" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-twitter fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-google-plus" href="https://www.google.com/+OpeniceInfoPage" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-google-plus fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-linkedin" href="https://www.linkedin.com/grp/home?gid=8333715" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-linkedin fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-facebook" href="https://www.facebook.com/openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-facebook fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-community" href="http://community.openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-users fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="footer-copyright">Copyright (c) 2015, 2020 The OpenICE Team<br/>All rights reserved.</span>
+
+</footer>
+
+  </body>
+
+</html>

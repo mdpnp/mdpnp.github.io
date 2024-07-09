@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>Example OpenICE System Setups</title>
+<meta name="title" content="Example OpenICE System Setups"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="../assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="6_example-setups.html">
+
+
+
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../css/custom-style.css">
+<script type="text/javascript" src="../lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <div id="logo-banner-holder" class="container-fluid">
+  <a href="../index.html">
+    <img id="logo-banner" class="hidden-xs" src="../assets/banner.png" alt="Banner" />
+  </a>
+</div>
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="../index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="6_example-setups.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="../demo.html">Web Monitor Demo</a></li>
+            <li><a href="../vitals.html">Visualization App</a></li>
+            <li><a href="../diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="6_example-setups.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="../devdocs/beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="../devdocs/build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="../devdocs/resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="https://mdpnp.mgh.harvard.edu/" target="_blank">MDPnP.org</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <section id="doc" class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="doc-title">Example OpenICE System Setups</h1>
+
+          OpenICE is a highly flexible system that leaves users with many options for using the tech. This tutorial illustrates three sample OpenICE configurations - single device, consumer, and enterprise.
+
+<h3 id="simple">Simple OpenICE Setup</h3>
+<row class="clearfix">
+  <div class="col-lg-5" style="padding:0;">
+    <p>
+      Using OpenICE to connect to a single device is as simple as plugging it in! For a OpenICE compatible medical device with serial data export capabilities, all that is needed is the medical device like a Philips MP70, a computer running the OpenICE software and a serial to USB device. In the case of the MP70, you will also need a RJ45 to DB9 converter. A list of supported devices can be found on the <a href="4_device-adapter-setup.html">device-adapter setup</a> page.
+    </p>
+    <p>
+      In this setup, run both the MP70 device-adapter software and the Supervisor on the same host computer. The device-adapter and supervisor will communicate via the local loopback adapter. This is only an example of what connection configurations are possible with OpenICE. This setup can be extended by running other device-adapters on a network that the host computer is connected to as seen in the next example.
+    </p>
+  </div>
+  <!-- Simple modal button -->
+  <div class="col-lg-7 text-center view-larger" data-toggle="modal" data-target="#modal-simple">
+    <img class="img-responsive view-larger-image" src="../assets/openice-setup-simple.png" alt="openice simple setup">
+    <p class="view-larger-caption">
+      Click to view larger
+    </p>
+  </div>
+</row>
+<!-- Simple modal -->
+<div class="modal fade" id="modal-simple" tabindex="-1">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">Simple OpenICE Setup</h4>
+      </div>
+      <div class="modal-body">
+        <img class="img-responsive" src="../assets/openice-setup-simple.png" alt="openice simple setup">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+
+<h3 id="comsumer">Consumer-Grade Equipment OpenICE Setup</h3>
+<row class="clearfix">
+  <div class="col-lg-5" style="padding:0;">
+    <p>
+      Using only consumer-grade electronics, it is possible to setup a full-featured OpenICE implementation. In this example, the following hardware is used:
+      <ul>
+        <li>Beaglebone Black running device-adapter software</li>
+        <li>Desktop computer running device-adapter software</li>
+        <li>Laptop computer running the OpenICE Supervisor</li>
+        <li>COTS WiFi router connecting every device</li>
+      </ul>
+      The OpenICE system's discovery mechanisms and pub/sub functionality allow the user to run a device simulator anywhere on the network, either the Beaglebone Black, a desktop computer, or a laptop. This simulator will be visible to any supervisor on the same local network segment.
+    </p>
+    <p>
+      This setup is great for demonstration or experimentation but the hardware presented is not common in a hospital setting. The same OpenICE functionality can be acheived using more robust hardware such as in the final sample setup.
+    </p>
+  </div>
+  
+  <!-- Consumer modal button -->
+  <div class="col-lg-7 text-center view-larger" data-toggle="modal" data-target="#modal-consumer">
+    <img class="img-responsive view-larger-image" src="../assets/openice-setup-medium.png" alt="openice consumer setup">
+    <p class="view-larger-caption">
+      Click to view larger
+    </p>
+  </div>
+</row>
+<!-- Consumer modal -->
+<div class="modal fade" id="modal-consumer" tabindex="-1">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">Consumer-Grade OpenICE Setup</h4>
+      </div>
+      <div class="modal-body">
+        <img class="img-responsive" src="../assets/openice-setup-medium.png" alt="openice consumer setup">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+
+<h3 id="simple">Enterprise-Grade OpenICE Setup</h3>
+<row class="clearfix">
+  <div class="col-lg-5" style="padding:0;">
+    <p>
+      In an environment where there are cost constraints around price of retrofitting each medical device with a computer, the Beaglebone Black is a very low cost option for running the device-adapter software. The device-adapters can be connected to existing enterprise-grade infrastructure present in a hospital facility. Creating a virtual local area network (VLAN) is recommended to segregate OpenICE network traffic from other systems.
+    </p>
+    <p>
+      The pub/sub nature of OpenICE allows multiple subscribers to be painlessly spooled up. In this example, three subscribers are implemented serving as desintations for the medical device data: an HL7 export app, a data recorder app, and a Supervisor. These applications will be able to discover any device-adapter connected to the same network segment.
+    </p>
+  </div>
+  <!-- Enterprise modal button -->
+  <div class="col-lg-7 text-center view-larger" data-toggle="modal" data-target="#modal-enterprise">
+    <img class="img-responsive view-larger-image" src="../assets/openice-setup-enterprise.png" alt="openice enterprise setup">
+    <p class="view-larger-caption">
+      Click to view larger
+    </p>
+  </div>
+</row>
+<!-- Enterprise modal -->
+<div class="modal fade" id="modal-enterprise" tabindex="-1">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel">Enterprise-Grade OpenICE Setup</h4>
+      </div>
+      <div class="modal-body">
+        <img class="img-responsive" src="../assets/openice-setup-enterprise.png" alt="openice enterprise setup">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+
+
+        </div>
+
+        <div class="col-md-3 hidden-sm hidden-xs docnav">
+          <div id="docnav-affix">
+
+            <h5 class="docnav-title">User Docs</h5>
+            <ul class="list-unstyled">
+
+              
+                
+                  <li><a href="1_overview.html">OpenICE Introduction</a></li>
+                
+              
+                
+                  <li><a href="2_supervisor.html">Supervisor Overview</a></li>
+                
+              
+                
+                  <li><a href="3_apps.html">Demo Applications</a></li>
+                
+              
+                
+                  <li><a href="4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+                
+              
+                
+                  <li><a href="5_device-adapter-config.html">Device-Adapter Config</a></li>
+                
+              
+                
+                  <li><a href="6_example-setups.html">OpenICE System Setup</a></li>
+                
+              
+
+            </ul>
+
+            <h5 class="docnav-title">For Developers</h5>
+            <ul class="list-unstyled">
+              <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+              <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+              
+                
+                  <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/beagle.html">Beaglebone Notes</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/build.html">Build from Source</a></li>
+                
+              
+                
+                  <li><a href="../devdocs/resources.html">Tools and Resources</a></li>
+                
+              
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer" class="container-fluid">
+
+  <div class="row footer-icons">
+    <div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4">
+      <div class="row">
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-github" href="https://github.com/mdpnp/mdpnp" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-github-alt fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-twitter" href="https://twitter.com/RandallJonesSim" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-twitter fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-google-plus" href="https://www.google.com/+OpeniceInfoPage" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-google-plus fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-linkedin" href="https://www.linkedin.com/grp/home?gid=8333715" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-linkedin fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-facebook" href="https://www.facebook.com/openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-facebook fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+        <div class="col-xs-4 col-sm-2">
+          <a id="footer-community" href="http://community.openice.info" target="_blank">
+            <span class="fa-stack fa-2x">
+              <span class="fa fa-circle-thin fa-stack-2x"></span>
+              <span class="fa fa-users fa-stack-1x"></span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="footer-copyright">Copyright (c) 2015, The OpenICE Team<br/>All rights reserved.</span>
+
+</footer>
+
+    <script type="text/javascript">
+      $(window).load(function () {
+        $('#docnav-affix').affix({
+          offset: {
+            top: function () {
+              return (this.top = $('#logo-banner-holder').outerHeight(true) + $('#main-navbar').outerHeight(true));
+            },
+            bottom: function () {
+              return (this.bottom = $('#footer').outerHeight(true));
+            }
+          }
+        });
+      });
+    </script>
+
+  </body>
+
+</html>

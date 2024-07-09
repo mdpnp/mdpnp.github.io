@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="OpenICE is a community implementation of the Integrated Clinical Environment.  The initiative seeks seamless connectivity to increase patient safety."/>
+<meta name="keywords" content="patient safety, md pnp, mdpnp, ICE, OpenICE, medical device, interoperability, healthcare, integrated clinical environment"/>
+
+<title>OpenICE Web Demo</title>
+<meta name="title" content="OpenICE Web Demo"/>
+<meta name="author" content="Jeff Peterson,Jeff Plourde" />
+
+<link href="assets/favicon.ico" rel="shortcut icon">
+<link rel="canonical" href="demo.html">
+
+
+
+<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="lib/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/custom-style.css">
+<script type="text/javascript" src="lib/respond/js/respond.min.js"></script>
+<script type="text/javascript" src="lib/jquery/js/jquery.min.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51695046-1', 'auto');ga('send', 'pageview');
+</script>
+
+  </head>
+
+  <body>
+
+    <div id="logo-banner-holder" class="container-fluid">
+  <a href="index.html">
+    <img id="logo-banner" class="hidden-xs" src="assets/banner.png" alt="Banner" />
+  </a>
+</div>
+    <nav id="main-navbar" class="navbar navbar-default lead" role="navigation" style="margin-bottom:0px">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+        <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+      </button>
+      <a id="navbar-home" class="navbar-brand" href="index.html" >OpenICE</a>
+    </div>
+
+    <div id="main-nav-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+          <a href="demo.html#" class="dropdown-toggle" data-toggle="dropdown">Software<strong class="caret"></strong></a>
+          <ul id="navbar-software" class="dropdown-menu">
+            <li><a href="https://github.com/mdpnp/mdpnp/releases/latest" target="_blank">Download OpenICE</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="demo.html">Web Monitor Demo</a></li>
+            <li><a href="vitals.html">Visualization App</a></li>
+            <li><a href="diagnostics.html">System Diagnostics</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="demo.html#" class="dropdown-toggle" data-toggle="dropdown">Docs<strong class="caret"></strong></a>
+          <ul id="navbar-docs" class="dropdown-menu">
+            
+              
+                <li><a href="docs/1_overview.html">OpenICE Introduction</a></li>
+              
+            
+              
+                <li><a href="docs/2_supervisor.html">Supervisor Overview</a></li>
+              
+            
+              
+                <li><a href="docs/3_apps.html">Demo Applications</a></li>
+              
+            
+              
+                <li><a href="docs/4_device-adapter-setup.html">Device-Adapter Setup</a></li>
+              
+            
+              
+                <li><a href="docs/5_device-adapter-config.html">Device-Adapter Config</a></li>
+              
+            
+              
+                <li><a href="docs/6_example-setups.html">OpenICE System Setup</a></li>
+              
+            
+
+            <li role="separator" class="divider"></li>
+
+            <li><a href="https://docs.google.com/document/d/1g1zYd3kdxk8tL3zzkTJM38ied9Mi-prGTvvsf9LkDJw/edit" target="_blank">App Architecture</a></li>
+            <li><a href="https://github.com/mdpnp/hello-openice" target="_blank">Hello, OpenICE! Repo</a></li>
+
+            
+              
+                <li><a href="https://www.openice.info/devdocs/-hello-openice.html">Hello, OpenICE! Docs</a></li>
+              
+            
+              
+                <li><a href="devdocs/beagle.html">Beaglebone Notes</a></li>
+              
+            
+              
+                <li><a href="devdocs/build.html">Build from Source</a></li>
+              
+            
+              
+                <li><a href="devdocs/resources.html">Tools and Resources</a></li>
+              
+            
+
+          </ul>
+        </li>
+
+   
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="navbar-mdpnp" href="https://mdpnp.mgh.harvard.edu/" target="_blank">MDPnP.org</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+    <!--[if IE]>
+<script language="javascript" type="text/javascript" src="build/demo-ie8.js"></script>
+<![endif]-->
+<!--[if !IE]><!-->
+<script type="text/javascript" src="build/openice.info.js"></script>
+<!--<![endif]-->
+
+<section id="web-demo">
+  <form id="partitionForm">
+    <div id="header-demo" class="text-center container">
+      <div id="connectionStateAlert" class="alert alert-danger">
+        <span id="connectionStateText">Connecting...</span>
+        <br />
+      </div>
+      <div>
+        <h1 style="margin-top:0px"><span id="medicalDeviceData">Live Medical Device Data</span><select id="partitionBox" style="display:none" multiple="multiple"></select><br /><small class="hidden-xs">Streaming from the MD PnP Lab in Cambridge, MA</small></h1>
+      </div>
+    </div>
+  </form>
+  <div class="text-center container">
+    <button class="btn btn-info" data-toggle="modal" data-target="#data-flow-modal">Where is this data coming from?</button>
+    <br><br>
+    <div id="data-flow-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="modalLabel">Where is this data coming from?</h4>
+          </div>
+          <div class="modal-body">
+            <img class="img-responsive" alt="Data Flow Diagram" src="assets/OpenICE-data-flow-large.png" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+  <div id="ivy-container" class="container-fluid demo-container">
+    <div id="webcam-ivy" class="col-md-6 text-center">
+      <h3 style="color: #FFF">Ivy Vital-Guard 450C</h3>
+      <canvas id="videoCanvas-ivy" width="320" height="240">
+        <p style="color:white">
+          Please use a browser that supports the Canvas Element, like
+          <a href="http://www.google.com/chrome">Chrome</a>,
+          <a href="http://www.mozilla.com/firefox/">Firefox</a>,
+          <a href="http://www.apple.com/safari/">Safari</a> or Internet Explorer 10
+        </p>
+      </canvas>
+      <p style="color: #FFF">Live Video of the Patient Monitor</p>
+    </div>
+
+    <div id="flotit-monitor-HR" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-monitor-HR-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-monitor-HR-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-monitor-spo2" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-monitor-spo2-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-monitor-spo2-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-monitor-press" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-monitor-press-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-monitor-press-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-monitor-RR" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-monitor-RR-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-monitor-RR-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-monitor" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-monitor-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-monitor-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+  </div>
+
+  <div id="evita-container" class="container-fluid demo-container">
+    <div id="webcam-evita" class="col-md-6 container-fluid text-center">
+      <h3 style="color: #FFF">Dr&#228;ger Evita XL</h3>
+      <canvas id="videoCanvas-evita" width="320" height="240">
+        <p style="color:white">
+          Please use a browser that supports the Canvas Element, like
+          <a href="http://www.google.com/chrome">Chrome</a>,
+          <a href="http://www.mozilla.com/firefox/">Firefox</a>,
+          <a href="http://www.apple.com/safari/">Safari</a> or Internet Explorer 10
+        </p>
+      </canvas>
+      <p style="color: #FFF">Live Video of the Ventilator</p>
+    </div>
+
+    <div id="flotit-vent-PEEP" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-vent-PEEP-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-vent-PEEP-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-vent-RR" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-vent-RR-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-vent-RR-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-vent-VOL" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-vent-VOL-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-vent-VOL-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+    <div id="flotit-vent" class="col-xs-12 col-md-6 enclosingDiv">
+      <div id="flotit-vent-numeric" class="col-xs-12 col-md-3 numeric"></div>
+      <div id="flotit-vent-wave" class="col-xs-12 col-md-9 waveform"></div>
+    </div>
+  </div>
+
+  <div id="generic-container" class="container-fluid demo-container">
+    <div class="col-xs-12 col-md-6 waveform">
+      <div id="flotit-"></div>
+    </div>
+  </div>
+</section>
+
+<div id="websocket-support-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Your Browser is Not Supported</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <p>This demonstration requires a browser that is less than five years old.  Please consider downloading a modern web browser to experience this site.  Here are some examples:</p>
+          <table style="width:100%;text-align:center;border:0">
+            <tr style="border:0">
+              <td style="width:2000px;border:0">
+                <a target="_blank" href="http://www.google.com/chrome">Chrome</a></td>
+              <td style="width:2000px;border:0">
+                <a target="_blank" href="http://www.mozilla.com/firefox/">Firefox</a></td>
+              <td style="width:2000px;border:0">
+                <a target="_blank" href="http://www.apple.com/safari/">Safari</a></td>
+              <td style="width:2000px;border:0">
+                <a target="_blank" href="http://www.microsoft.com/ie">Internet Explorer</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="container-fluid">
+          <hr />
+          <h4>Vimeo Demonstration (Requires Latest Flash Player)</h4>
+          <p>This <a href="https://vimeo.com/99546813">screen capture</a> shows what the OpenICE demo app looks like with a modern browser.</p>
+          <div id="vimeo" class="videowrapper well">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p><small>
+    Trouble viewing the site? <a href="https://vimeo.com/99546813">Watch a screen capture on Vimeo</a><br />
+    <a href="http://caniuse.com/websockets">Is your browser compatible?</a><br />
+    Thanks to the <a href="https://github.com/phoboslab/jsmpeg">jsmpeg</a> project for mpeg decoding.
+  </small></p>
+</div>
+
+
+  </body>
+
+</html>

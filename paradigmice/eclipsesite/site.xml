@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="PARADIGM-ICE IDE feature download site" url="https://mdpnp.github.io/paradigmice/eclipsesite">
+      The PARADIGM-ICE IDE feature helps you to create new device interfaces for the PARADIGM-ICE open source platform.
+   </description>
+   <feature url="features/org.mdpnp.paradigmice.feature_0.0.1.beta.jar" id="org.mdpnp.paradigmice.devices" version="0.0.1.beta">
+      <category name="org.mpdnp.paradigmice.devices.category"/>
+   </feature>
+   <category-def name="org.mpdnp.paradigmice.devices.category" label="PARADIGM-ICE Device Development"/>
+</site>
